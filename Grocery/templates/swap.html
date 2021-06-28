@@ -1,0 +1,507 @@
+<!doctype html>
+<!-- 
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dashboard | Bootstrap Simple Admin Template</title>
+    <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/master.css" rel="stylesheet">
+    <link href="assets/vendor/chartsjs/Chart.min.css" rel="stylesheet">
+    <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="chartStyle.css">
+    <style>
+    #map{
+    height:400px;
+    width: 500px;
+    }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <img src="assets/img/giftabled.png" alt="bootraper logo" class="app-logo">
+            </div>
+            <br>
+            <ul class="list-unstyled components text-secondary">
+                <li>
+                    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="tables.html"><i class="fas fa-table"></i> Tables</a>
+                </li>
+                <li>
+                    <a href="charts.html"><i class="fas fa-chart-bar"></i> Charts</a>
+                </li>
+                <li>
+                    <a href="#uielementsmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i> UI Elements</a>
+                    <ul class="collapse list-unstyled" id="uielementsmenu">
+                        <li>
+                            <a href="ui-alerts.html"><i class="fas fa-angle-right"></i> Alerts</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#authmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i> Authentication</a>
+                    <ul class="collapse list-unstyled" id="authmenu">
+                        <li>
+                            <a href="login.html"><i class="fas fa-lock"></i> Login</a>
+                        </li>
+                        <li>
+                            <a href="signup.html"><i class="fas fa-user-plus"></i> Signup</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="body" class="active">
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+                <button type="button" id="sidebarCollapse" class="btn btn-light"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <div class="nav-dropdown">
+                                <a href="" class="nav-item nav-link dropdown-toggle text-secondary" data-toggle="dropdown"><i class="fas fa-user"></i> <span>Admin</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                    <ul class="nav-list">   
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Notifications</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 page-header">
+                            <div class="page-pretitle">Overview</div>
+                            <h2 class="page-title">Dashboard</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="icon-big text-center">
+                                                <i class="violet fas fa-eye"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="detail">
+                                                <p class="detail-subtitle">Total Responses</p>
+                                                <span class="number">282</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="fas fa-stopwatch"></i> For this Month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="icon-big text-center">
+                                                <i class="orange fas fa-envelope"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="detail">
+                                                <p class="detail-subtitle">New Registrations</p>
+                                                <span class="number">75</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="fas fa-envelope-open-text"></i> For this Month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="icon-big text-center">
+                                                <i class="violet fas fa-eye"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="detail">
+                                                <p class="detail-subtitle">Some Insight 1</p>
+                                                <span class="number">282</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="fas fa-stopwatch"></i> For this Month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="icon-big text-center">
+                                                <i class="violet fas fa-eye"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="detail">
+                                                <p class="detail-subtitle">Some Insight 2</p>
+                                                <span class="number">282</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="fas fa-stopwatch"></i> For this Month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="content">
+                                            <div class="head">
+                                                <h5 class="mb-0">Regional Overview</h5>
+                                                <p class="text-muted">Current Registrations data</p>
+                                            </div>
+                                            <div class="canvas-wrapper">
+                                                <!-- <canvas class="chart" id="trafficflow"></canvas>  -->
+                                                <!-- Add Geolocation graph here -->
+                                                <div id="map">
+                                                    <script>
+                                        
+                                            
+                                                        const api_url2="https://api.openweathermap.org/data/2.5/weather?q=London&appid=bf60b386ac1f1e22bd40032b8ea3c1b8";
+                                                        const mymap = L.map('map').setView([24.625288, 80.364818], 4);
+                                                        const attribution='&copy; <a href="https://www.openstreetmap.org/copyright">Open Street Map</a> contributors';
+                                        
+                                                        const marker1= L.marker([24.625288, 80.364818]).addTo(mymap);
+                                                        const marker2= L.marker([25.160127, 74.046437]).addTo(mymap);
+                                                        const marker3= L.marker([19.357852, 81.538006]).addTo(mymap);
+                                                        const marker4= L.marker([16.051157, 75.561443]).addTo(mymap);
+                                                        const marker5= L.marker([17.728244, 82.110844]).addTo(mymap);
+                                                        
+                                        
+                                                        const tileURL='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                                                        const tiles=L.tileLayer(tileURL,{attribution});
+                                        
+                                                        tiles.addTo(mymap);
+                                                    
+                                                        const api_url="https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat%3A-122.29009844646316%2C47.54607447032754&zoom=14.3497&marker=lonlat%3A-122.29188334609739%2C47.54403990655936%3Btype%3Aawesome%3Bcolor%3A%23bb3f73%3Bsize%3Ax-large%3Bicon%3Apaw%7Clonlat%3A-122.29282631194182%2C47.549609195001494%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome%7Clonlat%3A-122.28726954893025%2C47.541766557545884%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome&apiKey=601bb58d69924514ba67260fe21f6c37";
+                                                    
+                                                        
+                                                        //  var city = {
+                                                        //       "coord":{ "lat":35,"lon":45}
+                                                        //  }
+                                                    
+                                                    //     async function getapi() {
+                                            
+                                                    
+                                                    //         // Storing response
+                                                    //         const response2 = await fetch(api_url);
+                                                    
+                                                    //         // Storing data in form of JSON
+                                                    //         const data = await response2.json();
+                                                    
+                                                    
+                                                    //         console.log(data);    
+                                                    // } 
+                                        
+                                                   //const lati,longi;
+                                                    async function getapi2(url) {
+                                            
+                                                    
+                                                        const response = await fetch(api_url2);
+                                        
+                                                        // Storing data in form of JSON
+                                                        const data2 = await response.json();
+                                                       const lati=data2.coord.lat;
+                                                       const longi=data2.coord.lon;
+                                                       console.log(data2);
+                                                    
+                                                        const marker2= L.marker([lati, longi]).addTo(mymap);
+                                                          
+                                                    } 
+                                        
+                                        
+                                                         getapi2();
+                                                        //  getapi();
+                                        
+                                                    </script>
+                                                <br>
+                                                </div>
+
+                                            </div>
+                                            <div class="ui hidden divider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="content">
+                                            <div class="head">
+                                                <h5 class="mb-0">Geographical statistics</h5>
+                                                <p class="text-muted">Current regional statistical Data</p>
+                                            </div>
+                                            <div class="canvas-wrapper">
+                                                <!-- <canvas class="chart" id="sales"></canvas> -->
+                                                <!-- Add Gender Statistics Data Here -->
+                                                <div id="chartContainer" style="height: 400px; width: 500px;"   ></div>
+                                            </div>
+                                            <div class="ui hidden divider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="head">
+                                        <h5 class="mb-0">Top Cities by Total Registrations</h5>
+                                        <p class="text-muted">Current year website visitor data</p>
+                                    </div>
+                                    <div class="canvas-wrapper">
+                                        <table class="table no-margin bg-lighter-grey">
+                                            <thead class="success">
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th class="text-right">Total Registrations</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></i> Mumbai</td>
+                                                    <td class="text-right">842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></i> Hyderabad</td>
+                                                    <td class="text-right">830</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></i> Bangalore</td>
+                                                    <td class="text-right">610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delhi</td>
+                                                    <td class="text-right">576</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Patna</td>
+                                                    <td class="text-right">536</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Kerla</td>
+                                                    <td class="text-right">376</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Indore</td>
+                                                    <td class="text-right">376</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Chandigarh</td>
+                                                    <td class="text-right">286</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Haryana</td>       
+                                                    <td class="text-right">209</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Amritsar</td>
+                                                    <td class="text-right">1,70</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="head">
+                                        <h5 class="mb-0">Monthwise Data Visualization</h5>
+                                        <!-- <p class="text-muted">Current year Age statical Data</p> -->
+                                    </div>
+                                    <div class="canvas-wrapper">
+                                        <!-- <canvas class="chart" id="sales"></canvas> -->
+                                        <!-- Add Gender Statistics Data Here -->
+                                        <div id="chartContainer1" style="height: 580px; width: 500px;"></div>
+                                    </div>
+                                    <div class="ui hidden divider"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="text-center">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="dfd text-center">
+                                            <i class="blue large-icon mb-2 fas fa-thumbs-up"></i>
+                                            <h4 class="mb-0">+3,900</h4>
+                                            <p class="text-muted">Total Positive Responses</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chartsjs/Chart.min.js"></script>
+    <script src="assets/js/dashboard-charts.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        window.onload = function () {
+        var dataPoints = [];
+        var DataPoints=[];
+        
+        var chart = new CanvasJS.Chart("chartContainer",{
+            title:{
+                display:true,
+                  fontSize:20,
+                  fontColor:'#000'
+            },
+            exportEnabled: true,
+            animationEnabled: true,
+            legend:{
+                cursor: "pointer",
+                itemclick: explodePie
+            },
+            data: [{
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}%</strong>",
+                indexLabel: "{name} - {y}%",
+                dataPoints: dataPoints,
+            }]
+        });
+        
+        
+        var anotherchart = new CanvasJS.Chart("chartContainer1",{
+            title:{
+                display:true,
+                  fontSize:20,
+                  fontColor:'#000'
+            },
+            exportEnabled:true,
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            animationEnabled: true,
+            axisX: {
+                title:"Month",
+            },
+            axisY:{
+                title: "Number of Child with disabilities",
+                includeZero: true,
+            },
+            data: [{        
+                type: "line",
+                markerSize: 10,
+                dataPoints: DataPoints,
+            }]
+        });
+        
+        
+        
+        console.log(dataPoints);
+        $.getJSON("a.json", function(data) {  
+            $.each(data, function(key, value){
+                //console.log(key);
+                for(var v in value){
+                    console.log(value[v].name+" "+value[v].count);
+                    if(key=="reg")
+                        dataPoints.push({name: value[v].name, y: value[v].count});
+                    else
+                    {
+                        
+                        if(value[v].count>500){
+                            DataPoints.push({ x: new Date(value[v].year,value[v].month), y: value[v].count, markerType: "cross",  markerColor: "tomato" });
+                        }
+                        else{
+                            DataPoints.push({ x: new Date(value[v].year,value[v].month), y: value[v].count, markerType: "triangle",  markerColor: "#6B8E23" });
+                        }
+                    }
+                        
+                }
+            });	
+            chart.render();
+            anotherchart.render();
+        });
+        }
+        function explodePie (e) {
+            if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+            } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+            }
+            e.chart.render();
+        
+        }
+          </script>
+</body>
+
+</html>
