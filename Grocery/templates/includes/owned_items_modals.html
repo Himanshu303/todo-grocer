@@ -14,6 +14,8 @@
           <h5 class="modal-title" id="ModalLabel">
             <!-- -->
             {{ owned_item.name }}
+
+          
           </h5>
           <button type="button" class="close"
                   data-dismiss="modal" aria-label="Close">
@@ -24,14 +26,18 @@
           <form method="POST">
             {{ selling_form.hidden_tag() }}
             <h4 class="text-center">
-              Are you sure you want to sell {{ owned_item.name }} for {{ owned_item.price }}$ ?
+              Are you sure you want to remove {{ owned_item.name }} from the cart ?
             </h4>
             <br>
             <h6 class="text-center">
-              By clicking Sell, you will put this item back on market
+            
             </h6>
             <br>
-            <input id="sold_item" name="sold_item" type="hidden" value="{{owned_item.name}}">
+            <input type="hidden" id="sold_item" name="sold_item" value= "{{ owned_item.name }}"}>
+            <input type="hidden" id="sold_item_id" name="sold_item_id" value= "{{ owned_item.id }}"}>
+            <input type="hidden" id="sold_item_price" name="sold_item_price" value= "{{ owned_item.price }}"}>
+          
+            
             {{ selling_form.submit(class="btn btn-outline-danger btn-block") }}
           </form>
         </div>

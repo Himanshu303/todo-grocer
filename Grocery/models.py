@@ -22,7 +22,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(length=30),nullable=False,unique=True)
     password_hash=db.Column(db.String(length=60),nullable=False)
     budget=db.Column(db.Integer(),nullable=False,default=10000)
-    items=db.relationship('Item',backref='owned_user',lazy=True)
+    items=db.relationship('Todo',backref='owned_user',lazy=True)
 
     @property
     def password(self):
@@ -46,21 +46,54 @@ class User(db.Model,UserMixin):
      
     def can_sell(self,item_obj):
         return item_obj in self.items
+    
+    def __repr__(self):
+        return "Item {}".format(self.username)
+    
+    def add_budget(self,amnt):
+        self.budget=int(amnt)
+        db.session.commit()
   
 
 class Item(db.Model):
     id =db.Column(db.Integer(), primary_key=True,autoincrement=True)
-    name=db.Column(db.String(length=30),nullable=False,unique=True)
+    name=db.Column(db.String(length=30),nullable=False,unique=False)
     price=db.Column(db.Integer(),nullable=False)
     owner=db.Column(db.Integer(),db.ForeignKey('user.id'))
+    bought_item=db.Column(db.Integer(),default=0)
     
     
     def buy(self,user):
                 self.owner=user.id
                 user.budget-=self.price
+                self.bought_item=self.price
                 db.session.commit()
     def sell(self,user):
-                self.owner=None
+                self.bought_item=0
+                user.budget+=self.price
+                db.session.commit()
+    
+    
+    def __repr__(self):
+        return "Item {}".format(self.name)
+    
+    
+class Todo(db.Model):
+    id =db.Column(db.Integer(), primary_key=True,autoincrement=True)
+    name=db.Column(db.String(length=30),nullable=False,unique=False)
+    price=db.Column(db.Integer(),nullable=False)
+    owner=db.Column(db.Integer(),db.ForeignKey('user.id'))
+    bought_item=db.Column(db.Boolean)
+
+    
+    
+    def buy(self,user):
+                self.owner=user.id
+                user.budget-=self.price
+                self.bought_item=True
+                db.session.commit()
+    def sell(self,user):
+                self.bought_item=False
                 user.budget+=self.price
                 db.session.commit()
     
@@ -70,6 +103,12 @@ class Item(db.Model):
     
     
     
+class Cart(db.Model):
+    id =db.Column(db.Integer(), primary_key=True,autoincrement=True)
+    name=db.Column(db.String(length=30),nullable=False,unique=False)
+    price=db.Column(db.Integer(),nullable=False)
+    owner=db.Column(db.Integer(),db.ForeignKey('user.id'))
+    bought_item=db.Column(db.Boolean)
     
     
     

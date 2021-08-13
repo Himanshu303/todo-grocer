@@ -6,7 +6,7 @@ Created on Wed Jun 23 20:30:12 2021
 """
 from Grocery.models import Item,User
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField
+from wtforms import StringField,PasswordField,SubmitField,IntegerField
 from wtforms.validators import Length,EqualTo,DataRequired,ValidationError
 
 
@@ -38,10 +38,25 @@ class LoginForm(FlaskForm):
     
 class PurchaseItemForm(FlaskForm):
     
-     submit=SubmitField(label="PURCHASE ITEM !")
+     submit=SubmitField(label="ADD TO CART !")
      
     
     
 class SellItemForm(FlaskForm):
     
-     submit=SubmitField(label="SELL ITEM !")
+     submit=SubmitField(label="REMOVE FROM CART !")
+     
+     
+class BuyForm(FlaskForm):
+    buy=SubmitField(label="BUY")
+    
+
+
+class AddItemForm(FlaskForm):
+    item_name=StringField(label="Item Name:",validators=[DataRequired()])
+    price=IntegerField(label="Price:",validators=[DataRequired()])
+    submit=SubmitField(label='ADD ITEM')
+    
+class SetBudgetForm(FlaskForm):
+    new_budget=IntegerField(label="New Budget:",validators=[DataRequired()])
+    submit=SubmitField(label='Set')
